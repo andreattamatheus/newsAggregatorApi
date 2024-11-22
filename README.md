@@ -131,51 +131,8 @@ Authorization: Bearer {your_token}
 
 ## API Endpoints
 
-### Create user
+After you've documented your API, you can generate the docs using the scribe:generate Artisan command.
 
-- URL: /register
-- Method: POST
-- Headers: Content-Type: multipart/form-data
-- Description: Creates a new user
+php artisan scribe:generate
 
-### Login user
-
-- URL: /login
-- Method: POST
-- Headers: Authorization: Bearer {token}, Content-Type: multipart/form-data
-- Description: Login a user
-
-### Store a New Record
-
-- URL: /api/v1/emails
-- Method: POST
-- Headers: Authorization: Bearer {token}, Content-Type: multipart/form-data
-- Description: Creates a new record and parses the raw email content.
-
-### Get Record by ID
-
-- URL: /api/v1/emails/{emailId}
-- Method: GET
-- Headers: Authorization: Bearer {token}
-- Description: Fetches a single record by its ID.
-
-### Update a Record
-
-- URL: /api/v1/emails/{emailId}
-- Method: PUT
-- Headers: Authorization: Bearer {token}, Content-Type: application/json
-- Description: Updates a record by its ID.
-
-### Get All Records
-
-- URL: /api/v1/emails
-- Method: GET
-- Headers: Authorization: Bearer {token}
-- Description: Returns all records, excluding deleted items. Pagination is optional.
-
-### Delete a Record by ID
-
-- URL: /api/v1/emails/{emailId}
-- Method: DELETE
-- Headers: Authorization: Bearer {token}
-- Description: Soft deletes a record by its ID.
+- You can acces the API doc through the file inside src/public/docs/index.html
