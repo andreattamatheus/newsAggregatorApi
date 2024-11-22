@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Articles;
 
+use App\Jobs\Api\FetchArticlesOpenNews;
+use App\Jobs\Api\FetchArticlesTheNewsApi;
+use App\Jobs\Api\FetchArticlesTheNewYorkTimes;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;

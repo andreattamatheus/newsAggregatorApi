@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\FetchArticles;
+use App\Jobs\Articles\FetchArticles;
 use Illuminate\Console\Command;
 
 class FetchArticlesFromApis extends Command

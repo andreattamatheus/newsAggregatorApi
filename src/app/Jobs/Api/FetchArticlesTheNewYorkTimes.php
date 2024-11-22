@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Api;
 
 use App\Services\NewsFeed\Api\Articles\NewYorkTimesIntegrationService;
 use Carbon\Carbon;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Interfaces;
+namespace App\Services\NewsFeed\Api\Articles\Interfaces;
 
 use Carbon\Carbon;
 

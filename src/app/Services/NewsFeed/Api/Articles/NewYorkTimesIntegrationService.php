@@ -3,8 +3,8 @@
 namespace App\Services\NewsFeed\Api\Articles;
 
 use App\Data\ArticleNewYorkTimesData;
-use App\Interfaces\IntegrationNewsApiInterface;
 use App\Models\Article;
+use App\Services\NewsFeed\Api\Articles\Interfaces\IntegrationNewsApiInterface;
 use App\Services\NewsFeed\Client\HttpClientService;
 use App\Services\NewsFeed\Client\Interfaces\NewsFeedProvider;
 use Carbon\Carbon;
