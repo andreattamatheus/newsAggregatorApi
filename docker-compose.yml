@@ -1,0 +1,50 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: andreatta
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    container_name: api
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - api
+
+  db:
+    image: mysql:8.0
+    container_name: api-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - 3309:3306
+    volumes:
+      - ./mysql:/var/lib/mysql
+    networks:
+      - api
+
+  nginx:
+    image: nginx:alpine
+    container_name: api-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx:/etc/nginx/conf.d/
+    networks:
+      - api
+
+networks:
+  api:
+    driver: bridge
