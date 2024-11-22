@@ -16,7 +16,6 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware(['auth:sanctum', 'throttle:30,1'])->group(function () {
-        Route::get('logout', [AuthController::class, 'logout']);
 
         Route::prefix('user')->group(function () {
             Route::get('/preferences', [UserPreferenceController::class, 'index']);

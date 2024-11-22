@@ -19,8 +19,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
+
     /**
-     * Get a JWT via given credentials.
+     * Handle the user login request.
+     *
+     * @param LoginRequest $request The login request containing user credentials.
+     * @param UserService $userService The service to handle user-related operations.
+     * @return JsonResponse The response containing the authentication result.
      */
     public function login(LoginRequest $request, UserService $userService): JsonResponse
     {
@@ -39,8 +44,13 @@ class AuthController extends Controller
         ], Response::HTTP_OK);
     }
 
+
     /**
-     * Create user
+     * Register a new user.
+     *
+     * @param RegisterRequest $request The request object containing registration details.
+     * @param UserService $userService The service responsible for user-related operations.
+     * @return UserCreateResource|JsonResponse The resource representing the created user or a JSON response.
      */
     public function register(RegisterRequest $request, UserService $userService): UserCreateResource|JsonResponse
     {
@@ -53,6 +63,12 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Handle the password reset request.
+     *
+     * @param  \App\Http\Requests\ResetPasswordRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function reset(ResetPasswordRequest $request)
     {
         try {
@@ -75,11 +91,23 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Reset the index based on the given request.
+     *
+     * @param \Illuminate\Http\Request $request The request instance containing the necessary data.
+     * @return \Illuminate\Http\Response The response after resetting the index.
+     */
     public function resetIndex(Request $request)
     {
         return view('auth.reset-password', ['token' => $request->token]);
     }
 
+    /**
+     * Handle the forgot password request.
+     *
+     * @param \Illuminate\Http\Request $request The HTTP request instance.
+     * @return \Illuminate\Http\JsonResponse The JSON response indicating the result of the forgot password request.
+     */
     public function forgotPassword(Request $request)
     {
         try {

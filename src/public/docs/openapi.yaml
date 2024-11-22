@@ -1,0 +1,284 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/v1/register:
+    post:
+      summary: 'Register a new user.'
+      operationId: registerANewUser
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: repellat
+                  nullable: false
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: yadira.treutel@example.net
+                  nullable: false
+                password:
+                  type: string
+                  description: ''
+                  example: K\ez66j<S8|;
+                  nullable: false
+              required:
+                - name
+                - email
+                - password
+      security: []
+  /api/v1/user/forgot-password:
+    post:
+      summary: 'Handle the forgot password request.'
+      operationId: handleTheForgotPasswordRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  '/api/v1/reset-password/{token}':
+    get:
+      summary: 'Reset the index based on the given request.'
+      operationId: resetTheIndexBasedOnTheGivenRequest
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Reset Password</title>\n    <script src=\"https://cdn.tailwindcss.com\"></script>\n</head>\n\n<body class=\"bg-gray-100\">\n    <div class=\"container mx-auto mt-10\">\n        <div class=\"max-w-md mx-auto bg-white p-8 border border-gray-300 rounded-lg shadow-lg\">\n            <h2 class=\"text-2xl font-bold mb-6 text-center\">Reset Password</h2>\n            <form method=\"POST\" action=\"http://localhost/api/v1/user/reset-password\">\n                <input type=\"hidden\" name=\"_token\" value=\"\" autocomplete=\"off\">                <input type=\"hidden\" name=\"token\" value=\"voluptas\">\n\n                <div class=\"mb-4\">\n                    <label for=\"email\" class=\"block text-gray-700\">Email Address</label>\n                    <input type=\"email\" name=\"email\" id=\"email\"\n                        class=\"w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500\"\n                        required autofocus>\n                </div>\n\n                <div class=\"mb-4\">\n                    <label for=\"password\" class=\"block text-gray-700\">New Password</label>\n                    <input type=\"password\" name=\"password\" id=\"password\"\n                        class=\"w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500\"\n                        required>\n                </div>\n\n                <div class=\"mb-4\">\n                    <label for=\"password_confirmation\" class=\"block text-gray-700\">Confirm New Password</label>\n                    <input type=\"password\" name=\"password_confirmation\" id=\"password_confirmation\"\n                        class=\"w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500\"\n                        required>\n                </div>\n\n                <div class=\"mb-4\">\n                    <button type=\"submit\"\n                        class=\"w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500\">Reset\n                        Password</button>\n                </div>\n            </form>\n        </div>\n    </div>\n</body>\n\n</html>"
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: token
+        description: ''
+        example: voluptas
+        required: true
+        schema:
+          type: string
+  /api/v1/user/reset-password:
+    post:
+      summary: 'Handle the password reset request.'
+      operationId: handleThePasswordResetRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address. The <code>email</code> of an existing record in the users table.'
+                  example: aurelie37@example.org
+                  nullable: false
+                password:
+                  type: string
+                  description: 'Must be at least 8 characters.'
+                  example: '(5"dd82zR'
+                  nullable: false
+                password_confirmation:
+                  type: string
+                  description: 'Must be at least 8 characters.'
+                  example: wlgaxpcquvtofdujwcfqsmje
+                  nullable: false
+                token:
+                  type: string
+                  description: ''
+                  example: quia
+                  nullable: false
+              required:
+                - email
+                - password
+                - password_confirmation
+                - token
+      security: []
+  /api/v1/user/preferences:
+    get:
+      summary: 'Display a listing of user preferences.'
+      operationId: displayAListingOfUserPreferences
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Store a newly created user preference in storage.'
+      operationId: storeANewlyCreatedUserPreferenceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: 'The <code>type</code> of an existing record in the preferences table.'
+                  example: atque
+                  nullable: false
+                values:
+                  type: string
+                  description: ''
+                  example: atque
+                  nullable: false
+              required:
+                - type
+                - values
+      security: []
+  /api/v1/user/news-feed:
+    get:
+      summary: "Display a listing of the user's news feed."
+      operationId: displayAListingOfTheUsersNewsFeed
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/v1/articles:
+    get:
+      summary: 'Display a listing of the articles.'
+      operationId: displayAListingOfTheArticles
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/v1/articles/{id}':
+    get:
+      summary: 'Display the specified article.'
+      operationId: displayTheSpecifiedArticle
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the article.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/{fallbackPlaceholder}':
+    get:
+      summary: ''
+      operationId: getApiFallbackPlaceholder
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Not Found'
+                properties:
+                  message:
+                    type: string
+                    example: 'Not Found'
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: fallbackPlaceholder
+        description: ''
+        example: "'oB"
+        required: true
+        schema:
+          type: string
+tags:
+  -
+    name: Endpoints
+    description: ''

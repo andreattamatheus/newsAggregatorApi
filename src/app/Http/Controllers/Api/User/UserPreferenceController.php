@@ -11,6 +11,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserPreferenceController extends Controller
 {
+    /**
+     * Display a listing of user preferences.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Services\UserPreferenceService $userPreferenceService
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(Request $request, UserPreferenceService $userPreferenceService)
     {
         try {
@@ -18,7 +25,7 @@ class UserPreferenceController extends Controller
 
             return UserPreferenceResource::collection($preferences);
         } catch (\Exception $e) {
-            logger()->channel('daily')->error('Error retrieving the preferences: '.$e->getMessage());
+            logger()->channel('daily')->error('Error retrieving the preferences: ' . $e->getMessage());
 
             return response()->json([
                 'message' => 'Error retrieving the preferences. Contact support.',
@@ -26,6 +33,13 @@ class UserPreferenceController extends Controller
         }
     }
 
+    /**
+     * Store a newly created user preference in storage.
+     *
+     * @param  \App\Http\Requests\StoreUserPreferenceRequest  $request
+     * @param  \App\Services\UserPreferenceService  $userPreferenceService
+     * @return \Illuminate\Http\Response
+     */
     public function store(StoreUserPreferenceRequest $request, UserPreferenceService $userPreferenceService)
     {
         try {
@@ -33,7 +47,7 @@ class UserPreferenceController extends Controller
 
             return new UserPreferenceResource($preferences);
         } catch (\Exception $e) {
-            logger()->channel('daily')->error('Error retrieving the preferences: '.$e->getMessage());
+            logger()->channel('daily')->error('Error retrieving the preferences: ' . $e->getMessage());
 
             return response()->json([
                 'message' => 'Error retrieving the preferences. Contact support.',

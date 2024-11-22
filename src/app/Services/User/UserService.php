@@ -14,7 +14,7 @@ class UserService
         return $user->createToken('auth_token')->plainTextToken;
     }
 
-    public function createUser(array $request)
+    public function createUser(array $request): User
     {
         $user = new User([
             'name' => $request['name'],
@@ -22,7 +22,7 @@ class UserService
             'password' => bcrypt($request['password']),
         ]);
 
-        $user = DB::transaction(function () use ($user) {
+        return DB::transaction(function () use ($user) {
             $user->save();
 
             return $user;
