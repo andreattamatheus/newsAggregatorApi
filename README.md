@@ -39,6 +39,19 @@ This info must be same as the one in the .env of the root folder.
 - DB_USERNAME=andreatta
 - DB_PASSWORD=root
 
+### Project integration
+
+The choosen API's for integration was, NewYorkTImes, TheNews and OpenNews.
+
+- NEWS_API_KEY="#####################"
+- NEWS_API_URL="https://newsapi.org/v2/everything"
+
+- NEW_YORK_TIMES_API_KEY="#####################"
+- NEW_YORK_TIMES_API_URL="https://api.nytimes.com/svc/search/v2/articlesearch.json"
+
+- THE_NEWS_API_KEY="#####################"
+- THE_NEWS_API_URL="https://api.thenewsapi.com/v1/news/top"
+
 You need to connect to the container running the app:
 
 ```
