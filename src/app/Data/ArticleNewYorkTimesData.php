@@ -4,7 +4,6 @@ namespace App\Data;
 
 use Carbon\Carbon;
 use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Contracts\BaseData;
 
 class ArticleNewYorkTimesData extends Data
 {

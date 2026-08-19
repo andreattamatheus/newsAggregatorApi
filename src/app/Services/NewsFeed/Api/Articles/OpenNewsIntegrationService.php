@@ -48,8 +48,8 @@ class OpenNewsIntegrationService implements IntegrationNewsApiInterface, NewsFee
     {
         DB::transaction(static function () use ($articles) {
             collect($articles['data']['articles'])
-                ->map(fn($article) => ArticleOpenNewsData::fromArray($article))
-                ->each(fn(ArticleOpenNewsData $articleData) => Article::query()->create([
+                ->map(fn ($article) => ArticleOpenNewsData::fromArray($article))
+                ->each(fn (ArticleOpenNewsData $articleData) => Article::query()->create([
                     'title' => $articleData->title,
                     'content' => $articleData->content,
                     'category' => $articleData->category,

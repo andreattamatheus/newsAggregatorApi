@@ -17,6 +17,7 @@ class ApiRoutesTest extends TestCase
             'email' => fake()->email,
             'password' => bcrypt('password'),
         ]);
+        Preference::factory()->create(['type' => 'categories']);
     }
 
     public function test_user_can_register()
@@ -35,8 +36,8 @@ class ApiRoutesTest extends TestCase
     public function test_user_can_login()
     {
         $response = $this->postJson('api/v1/login', [
-            'email' => 'backoffice@yopmail.com',
-            'password' => '123123123',
+            'email' => $this->user->email,
+            'password' => 'password',
         ]);
 
         $response->assertStatus(200);

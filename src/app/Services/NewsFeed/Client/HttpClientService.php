@@ -15,6 +15,7 @@ class HttpClientService
     protected string $apiUrl;
 
     protected array $apiHeaders;
+
     public function __construct(
         NewsFeedProvider $provider
     ) {
@@ -22,6 +23,7 @@ class HttpClientService
         $this->apiUrl = $provider->getUrl();
         $this->apiHeaders = $provider->getHeaders();
     }
+
     public function makeRequest(string $action = 'get', array $params = []): array
     {
         try {
@@ -45,7 +47,7 @@ class HttpClientService
      */
     public function decodeResponse(Response $response): array
     {
-        logger()->channel()->info("[{$this->apiName} API - Response] - " . $this->apiUrl, [
+        logger()->channel()->info("[{$this->apiName} API - Response] - ".$this->apiUrl, [
             'PID' => getmypid(),
             'response' => $response->ok(),
         ]);
@@ -55,11 +57,11 @@ class HttpClientService
 
     public function decodeErrorResponse(Exception $error): array
     {
-        logger()->channel()->error("[{$this->apiName} API - Request] - " . $this->apiUrl, [
+        logger()->channel()->error("[{$this->apiName} API - Request] - ".$this->apiUrl, [
             'PID' => getmypid(),
             'message' => $error->getMessage(),
         ]);
 
-        return ['status' => ResponseCode::HTTP_BAD_REQUEST, 'error' => 'Unexpected error: ' . $error->getMessage()];
+        return ['status' => ResponseCode::HTTP_BAD_REQUEST, 'error' => 'Unexpected error: '.$error->getMessage()];
     }
 }

@@ -20,10 +20,6 @@ class ArticleController extends Controller
      */
     /**
      * Display a listing of the articles.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Services\ArticleService $articleService
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Resources\Json\ResourceCollection
      */
     public function index(Request $request, ArticleService $articleService): JsonResponse|ResourceCollection
     {
@@ -32,7 +28,7 @@ class ArticleController extends Controller
 
             return ArticleResource::collection($articles);
         } catch (\Exception $e) {
-            logger()->channel('daily')->error('Error retrieving the articles: ' . $e->getMessage());
+            logger()->channel('daily')->error('Error retrieving the articles: '.$e->getMessage());
 
             return response()->json([
                 'message' => 'Error retrieving the article. Contact support.',
@@ -42,16 +38,13 @@ class ArticleController extends Controller
 
     /**
      * Display the specified article.
-     *
-     * @param  \App\Models\Article  $article
-     * @return \Illuminate\Http\JsonResponse|\App\Http\Resources\ArticleResource
      */
     public function show(Article $article): JsonResponse|ArticleResource
     {
         try {
             return new ArticleResource($article);
         } catch (\Exception $e) {
-            logger()->channel('daily')->error('Error getting the article: ' . $e->getMessage());
+            logger()->channel('daily')->error('Error getting the article: '.$e->getMessage());
 
             return response()->json([
                 'message' => 'Error getting the article. Contact support.',

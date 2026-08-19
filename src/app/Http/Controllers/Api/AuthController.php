@@ -11,20 +11,21 @@ use App\Models\User;
 use App\Services\User\UserService;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-
     /**
      * Handle the user login request.
      *
-     * @param LoginRequest $request The login request containing user credentials.
-     * @param UserService $userService The service to handle user-related operations.
+     * @param  LoginRequest  $request  The login request containing user credentials.
+     * @param  UserService  $userService  The service to handle user-related operations.
      * @return JsonResponse The response containing the authentication result.
      */
     public function login(LoginRequest $request, UserService $userService): JsonResponse
@@ -44,12 +45,11 @@ class AuthController extends Controller
         ], Response::HTTP_OK);
     }
 
-
     /**
      * Register a new user.
      *
-     * @param RegisterRequest $request The request object containing registration details.
-     * @param UserService $userService The service responsible for user-related operations.
+     * @param  RegisterRequest  $request  The request object containing registration details.
+     * @param  UserService  $userService  The service responsible for user-related operations.
      * @return UserCreateResource|JsonResponse The resource representing the created user or a JSON response.
      */
     public function register(RegisterRequest $request, UserService $userService): UserCreateResource|JsonResponse
@@ -66,7 +66,6 @@ class AuthController extends Controller
     /**
      * Handle the password reset request.
      *
-     * @param  \App\Http\Requests\ResetPasswordRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function reset(ResetPasswordRequest $request)
@@ -94,10 +93,9 @@ class AuthController extends Controller
     /**
      * Reset the index based on the given request.
      *
-     * @param \Illuminate\Http\Request $request The request instance containing the necessary data.
-     * @return \Illuminate\Http\Response The response after resetting the index.
+     * @param  \Illuminate\Http\Request  $request  The request instance containing the necessary data.
      */
-    public function resetIndex(Request $request)
+    public function resetIndex(Request $request): View
     {
         return view('auth.reset-password', ['token' => $request->token]);
     }
@@ -105,10 +103,10 @@ class AuthController extends Controller
     /**
      * Handle the forgot password request.
      *
-     * @param \Illuminate\Http\Request $request The HTTP request instance.
+     * @param  \Illuminate\Http\Request  $request  The HTTP request instance.
      * @return \Illuminate\Http\JsonResponse The JSON response indicating the result of the forgot password request.
      */
-    public function forgotPassword(Request $request)
+    public function forgotPassword(Request $request): RedirectResponse|JsonResponse
     {
         try {
             $status = Password::sendResetLink(

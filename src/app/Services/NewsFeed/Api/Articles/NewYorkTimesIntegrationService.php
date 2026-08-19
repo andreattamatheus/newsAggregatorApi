@@ -45,8 +45,8 @@ class NewYorkTimesIntegrationService implements IntegrationNewsApiInterface, New
     {
         DB::transaction(static function () use ($articles) {
             collect($articles['data']['response']['docs'])
-                ->map(fn($article) => ArticleNewYorkTimesData::fromArray($article))
-                ->each(fn(ArticleNewYorkTimesData $articleData) => Article::query()->create([
+                ->map(fn ($article) => ArticleNewYorkTimesData::fromArray($article))
+                ->each(fn (ArticleNewYorkTimesData $articleData) => Article::query()->create([
                     'title' => $articleData->title,
                     'content' => $articleData->content,
                     'category' => $articleData->category,

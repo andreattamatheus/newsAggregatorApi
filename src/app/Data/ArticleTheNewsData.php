@@ -16,15 +16,14 @@ class ArticleTheNewsData extends Data
         public string $author,
         public string $keywords,
 
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $attributes): self
     {
         return new self(
             title: $attributes['title'] ?? 'No Title',
             description: $attributes['description'] ?? 'No Description',
-            categories: $attributes['categories']  ? implode(',', $attributes['categories']) : ['Uncategorized'],
+            categories: $attributes['categories'] ? implode(',', $attributes['categories']) : ['Uncategorized'],
             published_at: isset($attributes['published_at'])
                 ? Carbon::parse($attributes['published_at'])
                 : now(),
@@ -33,5 +32,4 @@ class ArticleTheNewsData extends Data
             keywords: $attributes['keywords'] ?? 'No Keywords'
         );
     }
-
 }

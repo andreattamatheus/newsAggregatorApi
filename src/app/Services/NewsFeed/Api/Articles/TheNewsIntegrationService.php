@@ -49,15 +49,15 @@ class TheNewsIntegrationService implements IntegrationNewsApiInterface, NewsFeed
     {
         DB::transaction(static function () use ($articles) {
             collect($articles['data']['data'])
-                ->map(fn($article) => ArticleTheNewsData::fromArray($article))
-                ->each(fn(ArticleTheNewsData $articleData) => Article::query()->create([
+                ->map(fn ($article) => ArticleTheNewsData::fromArray($article))
+                ->each(fn (ArticleTheNewsData $articleData) => Article::query()->create([
                     'title' => $articleData->title,
                     'content' => $articleData->description,
                     'category' => $articleData->categories,
                     'publish_date' => $articleData->published_at->format('Y-m-d'),
                     'source' => $articleData->source,
                     'author' => $articleData->author,
-                    'keyword' => $articleData->keywords
+                    'keyword' => $articleData->keywords,
                 ]));
         });
     }

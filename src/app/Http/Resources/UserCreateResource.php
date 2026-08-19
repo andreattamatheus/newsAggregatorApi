@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,11 +15,14 @@ class UserCreateResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        /** @var User $user */
+        $user = $this->resource;
+
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'token' => $this->createToken('auth_token')->plainTextToken,
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'token' => $user->createToken('auth_token')->plainTextToken,
         ];
     }
 }
