@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Preference;
-use Tests\TestCase;
 use App\Models\User;
+use Tests\TestCase;
 
 class ApiRoutesTest extends TestCase
 {
@@ -104,7 +104,6 @@ class ApiRoutesTest extends TestCase
         // Test index
         $response = $this->getJson('api/v1/articles');
         $response->assertStatus(200);
-
 
         $articleId = $response->json('id');
 
