@@ -1,151 +1,104 @@
-# Laravel API Project
+# News Aggregator API
 
-## Overview
+A RESTful Laravel API for a news aggregator service that pulls articles from multiple sources (New York Times, TheNewsAPI, NewsAPI) and exposes endpoints for a front-end application to consume.
 
-The challenge is to build a RESTful API for a news aggregator service that pulls articles from various sources and provides endpoints for a front-end application to consume.
+## Tech Stack
 
-## Table of Contents
+- PHP 8.x, Laravel
+- MySQL
+- Docker (nginx + php-fpm)
+- Laravel queues & scheduler, Scribe (API docs)
 
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Running the Application](#running-the-application)
-- [API Endpoints](#api-endpoints)
-- [Authentication](#authentication)
-
-## Requirements
+## Prerequisites
 
 - Docker
 
 ## Installation
 
-**Clone the Repository**
-
-```bash
-git clone https://github.com/andreattamatheus/newsAggregator
+```sh
+git clone https://github.com/andreattamatheus/newsAggregatorApi
+cd newsAggregatorApi
 ```
 
-## Project API
-
-Copy the .env-example and rename it to .env
-
-Inside the src folder, exists the .env file, you must filled the correct info about your DB.
-This info must be same as the one in the .env of the root folder.
-
-- DB_CONNECTION=mysql
-- DB_HOST=api-db
-- DB_PORT=3306
-- DB_DATABASE=news_aggregator
-- DB_USERNAME=andreatta
-- DB_PASSWORD=root
-
-### Project integration
-
-The choosen API's for integration was, NewYorkTImes, TheNews and OpenNews.
-
-- NEWS_API_KEY="#####################"
-- NEWS_API_URL="https://newsapi.org/v2/everything"
-
-- NEW_YORK_TIMES_API_KEY="#####################"
-- NEW_YORK_TIMES_API_URL="https://api.nytimes.com/svc/search/v2/articlesearch.json"
-
-- THE_NEWS_API_KEY="#####################"
-- THE_NEWS_API_URL="https://api.thenewsapi.com/v1/news/top"
-
-You need to connect to the container running the app:
+Copy `.env.example` to `.env` in the project root, and `src/.env.example` to `src/.env` — both should share the same DB values:
 
 ```
+DB_CONNECTION=mysql
+DB_HOST=api-db
+DB_PORT=3306
+DB_DATABASE=YOUR_DATABASE
+DB_USERNAME=YOUR_USERNAME
+DB_PASSWORD=YOUR_PASSWORD
+```
+
+### News source integration
+
+Add API keys for the sources you want to use:
+
+```
+NEWS_API_KEY=your_newsapi_key
+NEWS_API_URL=https://newsapi.org/v2/everything
+
+NEW_YORK_TIMES_API_KEY=your_nyt_key
+NEW_YORK_TIMES_API_URL=https://api.nytimes.com/svc/search/v2/articlesearch.json
+
+THE_NEWS_API_KEY=your_thenewsapi_key
+THE_NEWS_API_URL=https://api.thenewsapi.com/v1/news/top
+```
+
+### Run
+
+```sh
+docker compose up -d
 docker exec -it api bash
 ```
 
-Install Laravel dependencies using Composer - Build and optimize Laravel application files
+Inside the container:
 
-```bash
+```sh
 composer install --no-interaction && php artisan optimize
-```
-
-Set permissions for storage and bootstrap folders in Laravel application directory
-
-```bash
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap
-```
-
-Set permissions for the resources folder
-
-```bash
 chmod -R 777 /var/www/html/resources
-```
-
-Expose port 8000 for the Laravel application
-
-```bash
 php artisan key:generate
-```
-
-Two users will be created here: backoffice@yopmail.com and admin@yopmail.com. Both have the password _123123123_
-
-```
 php artisan migrate:fresh --seed
 ```
 
-### Pint
+Seeding creates two users: `backoffice@yopmail.com` and `admin@yopmail.com`, both with password `123123123`.
 
-```
- ./vendor/bin/pint
-```
+## Background Jobs
 
-### PHPStan
-
-```
- ./vendor/bin/phpstan analyse
+```sh
+php artisan schedule:list                    # article-fetch job runs hourly
+php artisan app:fetch-articles-from-apis      # fetch articles manually
+php artisan queue:listen                      # process queued jobs
 ```
 
-### Test
+## Quality & Tests
 
-```
+```sh
+./vendor/bin/pint
+./vendor/bin/phpstan analyse
 php artisan test
-```
-
-### Schedules job
-
-You can check the schedules jobs. The job of fetch runs every hour:
-
-```
-php artisan schedule:list
-```
-
-If you want to run the command to fetch the content, you can try:
-
-```
-php artisan app:fetch-articles-from-apis
-```
-
-Then run teh queues:
-
-```
-php artisan queue:listen
 ```
 
 ## Authentication
 
-### Generating a Token
+Requests are authenticated with a Bearer token:
 
-You need to generate a token to authenticate API requests. Use Laravel’s built-in authentication features or a package like Passport to manage tokens.
-
-### Making Authenticated Requests
-
-Include the token in the Authorization header of your requests:
-
+```
 Authorization: Bearer {your_token}
-
-```
-4|FtA7npeqHV6pA926caMyK62V6KTu0xJaLphzfVUQ3550142d
 ```
 
-## API Endpoints
+## API Docs
 
-After you've documented your API, you can generate the docs using the scribe:generate Artisan command.
+Generate interactive API docs with Scribe:
 
+```sh
 php artisan scribe:generate
+```
 
-- You can acces the API doc through the file inside src/public/docs/index.html
+Docs are then available at `src/public/docs/index.html`.
+
+## Contact
+
+Matheus Andreatta — [@andreattamatheus](https://github.com/andreattamatheus)
