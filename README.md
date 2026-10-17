@@ -99,6 +99,18 @@ php artisan scribe:generate
 
 Docs are then available at `src/public/docs/index.html`.
 
+## Challenge
+
+Take-home challenge for a Backend Laravel Developer position: a RESTful API for a news aggregator that pulls articles from several sources and serves them to a frontend.
+
+- [x] **User authentication** — register, login, logout (token invalidation) and password reset
+- [x] **Article management** — paginated listing; search by keyword, date range, category and source; single article by ID; rate limiting
+- [x] **User preferences** — set and get preferred sources, categories and authors; personalized feed filtered by them
+- [x] **Data aggregation** — fetch from at least 3 news APIs on a schedule, store title/content/author/source/category/publish date, handle and log failures with retries
+- [x] **API docs** — Swagger/OpenAPI
+- [x] **Tests** — unit and feature tests for endpoints and core logic
+- [x] **Docker** — `docker-compose.yml` for the dev environment
+
 ## Contact
 
 Matheus Andreatta — [@andreattamatheus](https://github.com/andreattamatheus)
